@@ -26,20 +26,14 @@
     <iframe id="appFrame" src=""></iframe>
 
     <script>
-        // 1. Put your published Google Apps Script Web App URL here
+        // 1. Google Apps Script Web App Production URL
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwH29_hisXNswiiJfyTKxIubqdFV5qxaw-ayYkFlzTxsrtiY8WWdwKrx4q2B8uMwKzd2g/exec";
 
-        // 2. Read the "?code=" parameter from the current URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const studentCode = urlParams.get('code');
+        // 2. Forward ALL current URL parameters (?code=..., &teacher=...) directly to the iframe
+        const searchParams = window.location.search;
+        const finalUrl = searchParams ? (WEB_APP_URL + searchParams) : WEB_APP_URL;
 
-        // 3. Build the final URL
-        let finalUrl = WEB_APP_URL;
-        if (studentCode) {
-            finalUrl += "?code=" + encodeURIComponent(studentCode);
-        }
-
-        // 4. Load the iframe
+        // 3. Load the iframe
         document.getElementById('appFrame').src = finalUrl;
     </script>
 
